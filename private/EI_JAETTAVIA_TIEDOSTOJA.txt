@@ -1,0 +1,4 @@
+Author: Tatu Satoniitty
+Contact: tatu.satoniitty@gmail.com
+
+Asetukset ja henkilötiedot luodaan vasta asentamisen yhteydessä.

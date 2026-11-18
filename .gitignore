@@ -1,0 +1,17 @@
+# Author: Tatu Satoniitty
+# Contact: tatu.satoniitty@gmail.com
+/private/*
+!/private/EI_JAETTAVIA_TIEDOSTOJA.txt
+/logs/*
+!/logs/README.txt
+__pycache__/
+*.py[cod]
+.env
+.env.*
+*.log
+*.sqlite*
+*.db
+*.pem
+*.key
+*.cookie
+*.cookies
