@@ -1,0 +1,8 @@
+eVaka-vahti
+Copyright (c) 2026 Tatu Satoniitty. Lisenssi on LICENSE-VAHTI.txt.
+
+Sovellus käyttää AndroidX-kirjastoja (Android Open Source Project), Kotlinia
+ja kotlinx-kirjastoja (JetBrains ja osallistujat) sekä OkHttp- ja
+Okio-kirjastoja (Square ja osallistujat). Niiden pääasiallinen lisenssi on
+Apache License 2.0. Lisenssiteksti on tiedostossa Apache-2.0.txt. Kirjastojen
+omat merkinnät ja käyttöehdot koskevat niiden osia.
