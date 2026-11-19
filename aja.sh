@@ -5,7 +5,7 @@
 set -euo pipefail
 BASE="$(cd "$(dirname "$0")" && pwd)"
 TASK="${1:-}"
-case "$TASK" in hoito|lasna) ;; *) echo 'Käyttö: ./aja.sh hoito|lasna' >&2; exit 2;; esac
+case "$TASK" in hoito|lasna|viestit) ;; *) echo 'Käyttö: ./aja.sh hoito|lasna|viestit' >&2; exit 2;; esac
 mkdir -p "$BASE/logs"
 chmod 700 "$BASE/logs"
 export PYTHONPATH="$BASE/src"
@@ -16,7 +16,7 @@ if python -m evaka_vahti "$TASK" >> "$LOG" 2>&1; then
 import sys,json
 from pathlib import Path
 p=Path(sys.argv[1]);d=json.loads(p.read_text())
-print(d.get('healthchecks_hoito' if sys.argv[2]=='hoito' else 'healthchecks_lasna',''))
+print(d.get({'hoito':'healthchecks_hoito','lasna':'healthchecks_lasna','viestit':'healthchecks_viestit'}[sys.argv[2]],''))
 PYTHON
 )"
   if [[ -n "$URL" ]]; then

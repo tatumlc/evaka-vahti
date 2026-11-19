@@ -28,15 +28,24 @@ def settings():
         raise RuntimeError("Virheellinen API-osoite asetuksissa (vaaditaan HTTPS ja /api).")
     return data
 
-def get_calendar(start, end):
-    cfg = settings()
-    with requests.Session() as sess:
+def authenticated_session(cfg):
+    """Kirjaudu käyttäjän omaan eVaka-istuntoon (ei ohita vahvaa tunnistautumista)."""
+    sess = requests.Session()
+    try:
         sess.headers.update({"x-evaka-csrf": "1"})
-        login = sess.post(cfg["api_url"].rstrip("/") + "/citizen/auth/weak-login",
+        login = sess.post(cfg["api_url"] + "/citizen/auth/weak-login",
                           json={"username": cfg["username"], "password": cfg["password"]},
                           timeout=25)
         login.raise_for_status()
-        resp = sess.get(cfg["api_url"].rstrip("/") + "/citizen/reservations",
+        return sess
+    except Exception:
+        sess.close()
+        raise
+
+def get_calendar(start, end):
+    cfg = settings()
+    with authenticated_session(cfg) as sess:
+        resp = sess.get(cfg["api_url"] + "/citizen/reservations",
                         params={"from": start.isoformat(), "to": end.isoformat()}, timeout=30)
         resp.raise_for_status()
         data = resp.json()

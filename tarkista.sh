@@ -13,7 +13,9 @@ crontab -l | grep -F "$BASE/aja.sh" || echo 'VAROITUS: Ajastuksia ei löytynyt'
 HOITO=$?
 "$BASE/aja.sh" lasna
 LASNA=$?
-echo "Paluuarvot: hoito=$HOITO, lasna=$LASNA"
+"$BASE/aja.sh" viestit
+VIESTIT=$?
+echo "Paluuarvot: hoito=$HOITO, lasna=$LASNA, viestit=$VIESTIT"
 echo 'Viimeiset lokirivit:'
-tail -n 4 "$BASE/logs/hoito.log" "$BASE/logs/lasna.log" 2>/dev/null || true
-[[ $HOITO -eq 0 && $LASNA -eq 0 ]]
+tail -n 4 "$BASE/logs/hoito.log" "$BASE/logs/lasna.log" "$BASE/logs/viestit.log" 2>/dev/null || true
+[[ $HOITO -eq 0 && $LASNA -eq 0 && $VIESTIT -eq 0 ]]

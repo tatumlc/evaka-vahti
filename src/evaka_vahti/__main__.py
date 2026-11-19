@@ -4,14 +4,14 @@
 
 """Komentoriviliittymä."""
 import sys
-from . import hoitoajat,lasnaolo
+from . import hoitoajat,lasnaolo,viestit
 
 def main():
-    if len(sys.argv)!=2 or sys.argv[1] not in ('hoito','lasna'):
-        print('Käyttö: python -m evaka_vahti hoito|lasna',file=sys.stderr)
+    if len(sys.argv)!=2 or sys.argv[1] not in ('hoito','lasna','viestit'):
+        print('Käyttö: python -m evaka_vahti hoito|lasna|viestit',file=sys.stderr)
         return 2
     try:
-        (hoitoajat if sys.argv[1]=='hoito' else lasnaolo).run()
+        {'hoito': hoitoajat, 'lasna': lasnaolo, 'viestit': viestit}[sys.argv[1]].run()
         return 0
     except Exception as error:
         # Älä tulosta palvelimen virhevastauksia, koska ne voivat sisältää yksityisiä tietoja.

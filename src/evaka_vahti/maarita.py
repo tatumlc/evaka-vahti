@@ -22,13 +22,14 @@ def main():
     cid=input('Lapsen eVaka childId (voi jättää tyhjäksi, jos vain yksi lapsi): ').strip()
     hc1=input('Valinnainen Healthchecks-hoitoajat-ping-URL (Enter ohittaa): ').strip()
     hc2=input('Valinnainen Healthchecks-läsnäolo-ping-URL (Enter ohittaa): ').strip()
-    for value in (hc1,hc2):
+    hc3=input('Valinnainen Healthchecks-viestit-ping-URL (Enter ohittaa): ').strip()
+    for value in (hc1,hc2,hc3):
         if value and (not value.startswith('https://hc-ping.com/') or len(value)>200):
             raise SystemExit('Healthchecks-osoitteen on oltava https://hc-ping.com/...')
     PRIVATE.mkdir(parents=True,exist_ok=True,mode=0o700)
     os.chmod(PRIVATE,0o700)
     cfg={'api_url':api,'username':username,'password':password,'child_id':cid or None,
-         'healthchecks_hoito':hc1,'healthchecks_lasna':hc2}
+         'healthchecks_hoito':hc1,'healthchecks_lasna':hc2,'healthchecks_viestit':hc3}
     fd=os.open(CONFIG,os.O_WRONLY|os.O_CREAT|os.O_TRUNC,0o600)
     with os.fdopen(fd,'w',encoding='utf8') as out:json.dump(cfg,out,ensure_ascii=False,indent=2)
     os.chmod(CONFIG,0o600)
